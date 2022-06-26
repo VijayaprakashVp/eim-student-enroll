@@ -6,7 +6,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Container,
   Button,
@@ -28,8 +27,9 @@ const Students = () => {
   const [addStudent, setAddStudent] = useState({});
   const [add, setAdd] = useState(false);
   const [reload, setReload] = useState(false);
-  const [length, setLength] = useState(true);
-  console.log('length', length);
+  // const [length, setLength] = useState(true);
+
+  ///////////////////////////////////////////////////////////////
 
   useEffect(() => {
     fetch(`http://localhost:8080/students`)
@@ -37,11 +37,15 @@ const Students = () => {
       .then(res => setData(res))
       .catch(err => console.log(err));
   }, [reload]);
-  if (data.length > 0) setLength(false);
+  // if (data.length > 0) setLength(false);
+
+  ///////////////////////////////////////////////////////////////
 
   const handleChange = e => {
     setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
   };
+
+  ///////////////////////////////////////////////////////////////
 
   const handleSubmitStudent = (req, id) => {
     if (req === 0) {
@@ -90,6 +94,8 @@ const Students = () => {
     setData(temp.sort((a, b) => a.rollno - b.rollno));
   };
 
+  ///////////////////////////////////////////////////////////////
+
   return (
     <div>
       {/* <Container> */}
@@ -99,7 +105,7 @@ const Students = () => {
           {add ? 'Cancel' : 'Add Student'}
         </Button>
         <Button ml={15} onClick={handleSort}>
-          {length ? '' : 'Sort By RollNo'}
+          Sort By RollNo
         </Button>
       </Heading>
       <br />
@@ -147,12 +153,12 @@ const Students = () => {
               handleSubmitStudent(0);
               onOpen();
             }}
-            disabled={
-              !addStudent.name ||
-              !addStudent.age ||
-              !addStudent.rollno ||
-              !addStudent.class
-            }
+            // disabled={
+            //   !addStudent.name ||
+            //   !addStudent.age ||
+            //   !addStudent.rollno ||
+            //   !addStudent.class
+            // }
           >
             Submit Details
           </Button>
@@ -186,42 +192,44 @@ const Students = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {length ? (
+              {/* {length ? (
                 <Heading>
                   No Students Details Here, Please Add to See Data
                 </Heading>
               ) : (
-                data.map((e, i) => (
-                  <Tr key={e._id}>
-                    <Td>{i + 1}</Td>
-                    <Td>{e.name}</Td>
-                    <Td>{e.class}</Td>
-                    <Td>{e.age}</Td>
-                    <Td>{e.rollno}</Td>
-                    <Td>
-                      <Button
-                        colorScheme="teal"
-                        variant="solid"
-                        onClick={
-                          () => setAdd(true)
-                          // () => handleSubmitStudent(1, e._id))
-                        }
-                      >
-                        Edit
-                      </Button>
-                    </Td>
-                    <Td>
-                      <Button
-                        colorScheme="red"
-                        variant="solid"
-                        onClick={() => handleSubmitStudent(2, e._id)}
-                      >
-                        Delete
-                      </Button>
-                    </Td>
-                  </Tr>
-                ))
-              )}
+                
+              )} */}
+
+              {data.map((e, i) => (
+                <Tr key={e._id}>
+                  <Td>{i + 1}</Td>
+                  <Td>{e.name}</Td>
+                  <Td>{e.class}</Td>
+                  <Td>{e.age}</Td>
+                  <Td>{e.rollno}</Td>
+                  <Td>
+                    <Button
+                      colorScheme="teal"
+                      variant="solid"
+                      onClick={
+                        () => setAdd(true)
+                        // () => handleSubmitStudent(1, e._id))
+                      }
+                    >
+                      Edit
+                    </Button>
+                  </Td>
+                  <Td>
+                    <Button
+                      colorScheme="red"
+                      variant="solid"
+                      onClick={() => handleSubmitStudent(2, e._id)}
+                    >
+                      Delete
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
