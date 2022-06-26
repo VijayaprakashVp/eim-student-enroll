@@ -16,7 +16,6 @@ import React, { useEffect, useState } from 'react';
 
 const Students = () => {
   const [data, setData] = useState([]);
-  console.log('data', data);
   const [addStudent, setAddStudent] = useState({});
   const [add, setAdd] = useState(false);
   const [reload, setReload] = useState(false);
