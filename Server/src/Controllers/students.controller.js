@@ -31,6 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.patch("/:id", async (req, res) => {
+  console.log(req.params.id);
   try {
     const student = await Students.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
