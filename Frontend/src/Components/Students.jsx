@@ -42,7 +42,7 @@ const Students = () => {
 
   const handleSubmitStudent = (req, id) => {
     if (req === 0) {
-      fetch(`http://localhost:8080/students`, {
+      fetch(`https://eim-student-enroll.herokuapp.com/students`, {
         method: 'POST',
         body: JSON.stringify(addStudent),
         headers: {
@@ -55,7 +55,7 @@ const Students = () => {
       setAddStudent({});
     } else if (req === 1) {
       // setAdd(true);
-      fetch(`http://localhost:8080/students/${id}`, {
+      fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`, {
         method: 'PATCH',
         body: JSON.stringify(addStudent),
         headers: {
@@ -66,7 +66,7 @@ const Students = () => {
       setAddStudent({});
       // alert('Student Details Updated');
     } else if (req === 2) {
-      fetch(`http://localhost:8080/students/${id}`, {
+      fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`, {
         method: 'DELETE',
       });
       alert('Student Details Deleted');
