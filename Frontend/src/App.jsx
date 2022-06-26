@@ -7,7 +7,7 @@ import Students from './Components/Students';
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <ColorModeSwitcher justifySelf="flex-end" />
+      <ColorModeSwitcher ml="95%" />
       <Routes>
         <Route path="/" element={<Students />} />
       </Routes>

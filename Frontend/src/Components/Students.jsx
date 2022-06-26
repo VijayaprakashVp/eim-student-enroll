@@ -57,6 +57,7 @@ const Students = () => {
         },
       });
       console.log('addStudent', addStudent);
+      setAddStudent({});
     } else if (req === 1) {
       fetch(`http://localhost:8080/students/${id}`, {
         method: 'PATCH',
@@ -99,7 +100,7 @@ const Students = () => {
   return (
     <div>
       {/* <Container> */}
-      <Heading>
+      <Heading w={'50%'} m="auto">
         EIM-Students-enroll{' '}
         <Button onClick={() => setAdd(!add)}>
           {add ? 'Cancel' : 'Add Student'}
@@ -150,15 +151,15 @@ const Students = () => {
           <Button
             onClick={() => {
               setOverlay(<OverlayOne />);
-              handleSubmitStudent(0);
               onOpen();
+              handleSubmitStudent(0);
             }}
-            // disabled={
-            //   !addStudent.name ||
-            //   !addStudent.age ||
-            //   !addStudent.rollno ||
-            //   !addStudent.class
-            // }
+            disabled={
+              !addStudent.name ||
+              !addStudent.age ||
+              !addStudent.rollno ||
+              !addStudent.class
+            }
           >
             Submit Details
           </Button>
@@ -180,7 +181,7 @@ const Students = () => {
           </Modal>
         </Container>
       ) : (
-        <TableContainer>
+        <TableContainer w={'70%'} m="auto">
           <Table variant="striped" colorScheme="teal">
             <Thead>
               <Tr>
@@ -189,17 +190,11 @@ const Students = () => {
                 <Th>Age</Th>
                 <Th>Class</Th>
                 <Th>Roll No</Th>
+                <Th>To Edit</Th>
+                <Th>To Delete</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {/* {length ? (
-                <Heading>
-                  No Students Details Here, Please Add to See Data
-                </Heading>
-              ) : (
-                
-              )} */}
-
               {data.map((e, i) => (
                 <Tr key={e._id}>
                   <Td>{i + 1}</Td>
@@ -234,9 +229,7 @@ const Students = () => {
           </Table>
         </TableContainer>
       )}
-
       <br />
-
       {/* </Container> */}
     </div>
   );
