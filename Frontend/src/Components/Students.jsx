@@ -10,7 +10,6 @@ import {
   Container,
   Button,
   Input,
-  // ModalOverlay,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
@@ -86,20 +85,39 @@ const Students = () => {
   return (
     <div>
       {/* <Container> */}
-      <Heading w={'52%'} m="auto">
-        EIM-Students-enroll{' '}
-        <Button
-          onClick={() => {
-            setAdd(!add);
-            setUpdate(0);
-          }}
-        >
-          {add ? 'Cancel' : 'Add Student'}
-        </Button>
-        <Button ml={15} onClick={handleSort}>
-          Sort By RollNo
-        </Button>
-      </Heading>
+
+      <div
+        style={{
+          width: '100%',
+          // border: '1px solid grey',
+          height: '80px',
+          display: 'grid',
+          placeItems: 'center',
+          margin: 'auto',
+          backgroundColor: '#3F4E4F',
+          // color: 'blueviolet',
+          borderRadius: '10px',
+          // fontFamily: 'Georgia, serif',
+        }}
+      >
+        <Heading>
+          <span style={{ fontFamily: 'Georgia, serif' }}>
+            EIM-Students-Enroll
+          </span>{' '}
+          <Button
+            onClick={() => {
+              setAdd(!add);
+              setUpdate(0);
+            }}
+            style={{ marginLeft: '200px' }}
+          >
+            {add ? 'Cancel' : 'Add Student'}
+          </Button>
+          <Button ml={15} onClick={handleSort}>
+            Sort By RollNo
+          </Button>
+        </Heading>
+      </div>
       <br />
 
       {add ? (
