@@ -193,7 +193,7 @@ const Students = () => {
             <Tbody>
               {data.map((e, i) => (
                 <Tr key={e._id}>
-                  <Td>{i + 1}</Td>
+                  <Td>{i + 1 + '.'}</Td>
                   <Td>{e.name}</Td>
                   <Td>{e.class}</Td>
                   <Td>{e.age}</Td>
