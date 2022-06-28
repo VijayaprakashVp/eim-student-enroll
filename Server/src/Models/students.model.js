@@ -5,7 +5,7 @@ const studentSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     age: { type: Number, required: true },
-    rollno: { type: Number, required: true, unique: true },
+    rollno: { type: Number, required: false, unique: true },
     class: { type: Number, required: true },
   },
   {

@@ -156,11 +156,7 @@ const Students = () => {
             <Input
               variant="filled"
               placeholder="Roll Number"
-              value={
-                enableEdit === false
-                  ? Math.floor(Math.random() * 10000 + 1)
-                  : edit.rollno
-              }
+              value={enableEdit === false ? addStudent.rollno : edit.rollno}
               name="rollno"
               onChange={e => handleChange(e)}
             />
