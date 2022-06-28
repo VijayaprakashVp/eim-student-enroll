@@ -108,12 +108,12 @@ const Students = () => {
           display: 'grid',
           placeItems: 'center',
           margin: 'auto',
-          backgroundColor: '#3F4E4F',
+          backgroundColor: '#lightgrey',
           borderRadius: '10px',
         }}
       >
         <Heading>
-          <span style={{ fontFamily: 'Georgia, serif' }}>
+          <span style={{ fontFamily: 'Georgia, serif', color: 'white' }}>
             <Link to={'/'}>EIM-Students-Enroll</Link>
           </span>{' '}
           <Button
@@ -157,8 +157,8 @@ const Students = () => {
               variant="filled"
               placeholder="Roll Number"
               value={
-                edit.rollno === ''
-                  ? Math.floor(Math.random() * 10000 + 1)
+                edit.rollno === '' || addStudent === ''
+                  ? temp_Roll
                   : edit.rollno
               }
               name="rollno"
