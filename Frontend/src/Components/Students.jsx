@@ -157,8 +157,8 @@ const Students = () => {
               variant="filled"
               placeholder="Roll Number"
               value={
-                edit.rollno === '' || addStudent === ''
-                  ? temp_Roll
+                enableEdit === false
+                  ? Math.floor(Math.random() * 10000 + 1)
                   : edit.rollno
               }
               name="rollno"
