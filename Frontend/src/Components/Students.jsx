@@ -108,7 +108,7 @@ const Students = () => {
           display: 'grid',
           placeItems: 'center',
           margin: 'auto',
-          backgroundColor: '#lightgrey',
+          backgroundColor: '#3F4E4F',
           borderRadius: '10px',
         }}
       >
