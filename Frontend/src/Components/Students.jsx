@@ -33,19 +33,31 @@ const Students = () => {
   }, [reload]);
 
   // let rollArr = data.map(e => e.rollno);
-  let temp_Roll = Math.floor(Math.random() * 10000 + 1);
+  // let temp_Roll = Math.floor(Math.random() * 10000 + 1);
 
   ///////////////////////////////////////////////////////////////
 
   const handleChange = e => {
     if (enableEdit === true) {
       setEdit({ ...edit, [e.target.name]: e.target.value });
-    } else setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
+      // let rollCheck = false;
+      // for (let i = 0; i < rollArr; i++) {
+      //   if (rollArr[i] === edit.rollno) rollCheck = true;
+      // }
+      // if (rollCheck === true) alert('roll Number cannot be duplicated');
+    } else {
+      setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
+      // let rollCheck = false;
+      // for (let i = 0; i < rollArr; i++) {
+      //   if (rollArr[i] === edit.rollno) rollCheck = true;
+      // }
+      // if (rollCheck === true) alert('roll Number cannot be duplicated');
+    }
   };
 
   ///////////////////////////////////////////////////////////////
 
-  const handleSubmitStudent = (req, id) => {
+  const handleSubmitStudent = (req, id, name) => {
     if (req === 0) {
       fetch(`https://eim-student-enroll.herokuapp.com/students`, {
         method: 'POST',
@@ -69,12 +81,12 @@ const Students = () => {
       });
       setAdd(!add);
       setAddStudent({});
-      alert('Updated Succesfully');
+      alert(`Details Updated Succesfully`);
     } else if (req === 2) {
       fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`, {
         method: 'DELETE',
       });
-      alert('Student Details Deleted');
+      alert(`${name}'s Details Deleted`);
     }
     setReload(!reload);
   };
@@ -226,7 +238,7 @@ const Students = () => {
                     <Button
                       colorScheme="red"
                       variant="solid"
-                      onClick={() => handleSubmitStudent(2, e._id)}
+                      onClick={() => handleSubmitStudent(2, e._id, e.name)}
                     >
                       Delete
                     </Button>
