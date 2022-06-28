@@ -40,8 +40,6 @@ const Students = () => {
   const handleChange = e => {
     if (enableEdit === true) {
       setEdit({ ...edit, [e.target.name]: e.target.value });
-      // let check = roll_Roll.forEach(e => e == edit.rollno);
-      // if (check == true) console.log(check);
     } else setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
   };
 
