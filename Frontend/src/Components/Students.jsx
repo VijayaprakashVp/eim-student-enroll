@@ -12,6 +12,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Students = () => {
   const [data, setData] = useState([]);
@@ -20,7 +21,8 @@ const Students = () => {
   const [reload, setReload] = useState(false);
   const [update, setUpdate] = useState(0);
   const [id, setId] = useState('');
-
+  const [enableEdit, setEnableEdit] = useState(false);
+  const [edit, setEdit] = useState({});
   ///////////////////////////////////////////////////////////////
 
   useEffect(() => {
@@ -29,12 +31,18 @@ const Students = () => {
       .then(res => setData(res))
       .catch(err => console.log(err));
   }, [reload]);
-  // if (data.length > 0) setLength(false);
+
+  // let rollArr = data.map(e => e.rollno);
+  let temp_Roll = Math.floor(Math.random() * 10000 + 1);
 
   ///////////////////////////////////////////////////////////////
 
   const handleChange = e => {
-    setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
+    if (enableEdit === true) {
+      setEdit({ ...edit, [e.target.name]: e.target.value });
+      // let check = roll_Roll.forEach(e => e == edit.rollno);
+      // if (check == true) console.log(check);
+    } else setAddStudent({ ...addStudent, [e.target.name]: e.target.value });
   };
 
   ///////////////////////////////////////////////////////////////
@@ -48,22 +56,22 @@ const Students = () => {
           'Content-Type': 'Application/json',
         },
       });
-      // console.log('addStudent', addStudent);
       alert('Added');
       setAdd(!add);
       setAddStudent({});
     } else if (req === 1) {
-      // setAdd(true);
+      let temp = addStudent;
+      if (enableEdit === true) temp = edit;
       fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`, {
         method: 'PATCH',
-        body: JSON.stringify(addStudent),
+        body: JSON.stringify(temp),
         headers: {
           'Content-Type': 'Application/json',
         },
       });
       setAdd(!add);
       setAddStudent({});
-      // alert('Student Details Updated');
+      alert('Updated Succesfully');
     } else if (req === 2) {
       fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`, {
         method: 'DELETE',
@@ -82,27 +90,31 @@ const Students = () => {
 
   ///////////////////////////////////////////////////////////////
 
+  const handleEditForm = id => {
+    fetch(`https://eim-student-enroll.herokuapp.com/students/${id}`)
+      .then(res => res.json())
+      .then(res => setEdit(res))
+      .catch(err => console.log(err));
+
+    setEnableEdit(true);
+  };
+
   return (
     <div>
-      {/* <Container> */}
-
       <div
         style={{
           width: '100%',
-          // border: '1px solid grey',
           height: '80px',
           display: 'grid',
           placeItems: 'center',
           margin: 'auto',
           backgroundColor: '#3F4E4F',
-          // color: 'blueviolet',
           borderRadius: '10px',
-          // fontFamily: 'Georgia, serif',
         }}
       >
         <Heading>
           <span style={{ fontFamily: 'Georgia, serif' }}>
-            EIM-Students-Enroll
+            <Link to={'/'}>EIM-Students-Enroll</Link>
           </span>{' '}
           <Button
             onClick={() => {
@@ -128,7 +140,7 @@ const Students = () => {
             <Input
               variant="filled"
               placeholder="Name"
-              value={addStudent.name}
+              value={edit.name === '' ? addStudent.name : edit.name}
               name="name"
               onChange={e => handleChange(e)}
             />
@@ -136,7 +148,7 @@ const Students = () => {
             <Input
               variant="filled"
               placeholder="Age"
-              value={addStudent.age}
+              value={edit.age === '' ? addStudent.age : edit.age}
               name="age"
               onChange={e => handleChange(e)}
             />
@@ -144,7 +156,11 @@ const Students = () => {
             <Input
               variant="filled"
               placeholder="Roll Number"
-              value={addStudent.rollno}
+              value={
+                edit.rollno === ''
+                  ? Math.floor(Math.random() * 10000 + 1)
+                  : edit.rollno
+              }
               name="rollno"
               onChange={e => handleChange(e)}
             />
@@ -152,7 +168,7 @@ const Students = () => {
             <Input
               variant="filled"
               placeholder="Class"
-              value={addStudent.class}
+              value={edit.class === '' ? addStudent.class : edit.class}
               name="class"
               onChange={e => handleChange(e)}
             />
@@ -164,12 +180,12 @@ const Students = () => {
                   ? handleSubmitStudent(0)
                   : handleSubmitStudent(1, id);
               }}
-              disabled={
-                !addStudent.name ||
-                !addStudent.age ||
-                !addStudent.rollno ||
-                !addStudent.class
-              }
+              // disabled={
+              //   !addStudent.name ||
+              //   !addStudent.age ||
+              //   !addStudent.rollno ||
+              //   !addStudent.class
+              // }
             >
               Submit Details
             </Button>
@@ -193,7 +209,7 @@ const Students = () => {
             <Tbody>
               {data.map((e, i) => (
                 <Tr key={e._id}>
-                  <Td>{i + 1 + '.'}</Td>
+                  <Td>{i + 1}</Td>
                   <Td>{e.name}</Td>
                   <Td>{e.class}</Td>
                   <Td>{e.age}</Td>
@@ -203,6 +219,7 @@ const Students = () => {
                       colorScheme="teal"
                       variant="solid"
                       onClick={() => {
+                        handleEditForm(e._id);
                         setAdd(true);
                         setUpdate(1);
                         setId(e._id);
@@ -227,7 +244,6 @@ const Students = () => {
         </TableContainer>
       )}
       <br />
-      {/* </Container> */}
     </div>
   );
 };
